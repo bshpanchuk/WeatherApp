@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="request_location_permission">In order to locate your city app needs location permission.</string>
+    <string name="settings">Settings</string>
+    <string name="error">Can\'t load the weather info</string>
+    <string name="air_quality">Air Quality</string>
+    <string name="pressure">Pressure</string>
+    <string name="mbar">mBar</string>
+    <string name="humidity">Humidity</string>
+    <string name="m_s">m/s</string>
+    <string name="current_conditionals">Current conditionals</string>
+    <string name="wind">Wind</string>
+    <string name="aqi_good">Good</string>
+    <string name="aqi_fair">Fair</string>
+    <string name="aqi_moderate">Moderate</string>
+    <string name="aqi_poor">Poor</string>
+    <string name="aqi_very_poor">Very Poor</string>
+    <string name="hourly">Hourly</string>
+    <string name="my_location">My location</string>
+    <string name="saved">Saved</string>
+    <string name="suggestion">Suggestion</string>
+    <string name="favorites">Favorites</string>
+    <string name="close">Close</string>
+    <string name="search">Search</string>
+    <string name="precipitation">Precipitation\n</string>
+</resources>

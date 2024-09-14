@@ -1,16 +1,49 @@
 [versions]
+
+versionCode = "1"
+versionName = "1.0.0"
+minSdk = "21"
+targetSdk = "35"
+
+#app
 agp = "8.5.2"
-kotlin = "2.0.0"
+jetbrainsKotlinJvm = "2.0.0"
+kotlinxCoroutinesCore = "1.8.1"
+kspPlugin = "2.0.20-1.0.25"
+kotlin = "2.0.20"
+serializationPlugin = "2.0.0"
+
+#ui
 coreKtx = "1.13.1"
+lifecycleRuntimeKtx = "2.8.5"
+activityCompose = "1.9.2"
+composeBom = "2024.09.01"
+appcompat = "1.7.0"
+material = "1.12.0"
+navigationCompose = "2.8.0"
+coil="2.7.0"
+accompanist = "0.36.0"
+hilt = "2.51"
+
+room="2.6.1"
+
+#gcs
+gms-location = "21.3.0"
+gms-places = "3.5.0"
+playServicesBasement = "18.4.0"
+
+#remote
+ktor = "2.3.12"
+kotlinxSerializationJson = "1.6.3"
+
+#utils
+desugar_jdk_libs = "1.1.5"
+secrets_plugin = "2.0.1"
+
+#tests
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.5"
-activityCompose = "1.9.2"
-composeBom = "2024.09.00"
-appcompat = "1.7.0"
-material = "1.12.0"
-jetbrainsKotlinJvm = "2.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -19,6 +52,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -29,6 +63,39 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+gms-location = { module = "com.google.android.gms:play-services-location", version.ref = "gms-location" }
+gms-places = { module = "com.google.android.libraries.places:places", version.ref = "gms-places" }
+
+# coroutines
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+
+# hilt
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+# ktor
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+# coil
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+play-services-basement = { group = "com.google.android.gms", name = "play-services-basement", version.ref = "playServicesBasement" }
+
+# room
+android-room = { module = "androidx.room:room-runtime", version.ref = "room" }
+android-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+android-room-ksp = { module = "androidx.room:room-compiler", version.ref = "room" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -36,4 +103,12 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspPlugin" }
+daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationPlugin" }
+android-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets_plugin" }
 
+[bundles]
+coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-android"]
+ktor = ["ktor-core", "ktor-okhttp", "ktor-logging", "ktor-negotiation", "ktor-json"]
+coil = ["coil", "coil-compose"]
