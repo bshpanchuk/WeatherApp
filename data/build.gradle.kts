@@ -1,6 +1,10 @@
 plugins {
-    alias(libs.plugins.android.library)
+    id("com.android.library")
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.daggerHilt)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.android.secrets)
 }
 
 android {
@@ -23,22 +27,40 @@ android {
             )
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"
     }
+    secrets {
+        propertiesFileName = "secrets.properties"
+
+        defaultPropertiesFileName = "default.secrets.properties"
+    }
 }
 
 dependencies {
     implementation(project(":domain"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    implementation(libs.bundles.coroutines)
+    implementation(libs.bundles.ktor)
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.gms.location)
+    implementation(libs.gms.places)
+
+    implementation(libs.android.room)
+    implementation(libs.android.room.ktx)
+    ksp(libs.android.room.ksp)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
