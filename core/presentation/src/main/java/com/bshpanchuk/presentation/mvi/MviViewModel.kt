@@ -1,5 +1,6 @@
 package com.bshpanchuk.presentation.mvi
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -10,45 +11,38 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
-abstract class MviViewModel<E : UiEvent, S : UiState, D : Dialog, C : Callback> : ViewModel() {
+abstract class MviViewModel<E : UiEvent, S : UiState, D : Dialog, C : Callback> (
+    dafaultState: S
+) : ViewModel() {
 
 
-    abstract val state: S
+    protected val state: MutableState<S> = mutableStateOf(dafaultState)
+    val uiState: State<S> = state
 
     private var _dialogState = mutableStateOf<D?>(null)
     val dialogState: State<D?> = _dialogState
-    private var _globalProgressState = mutableStateOf<Boolean>(false)
-    val globalProgressState: State<Boolean> = _globalProgressState
 
     val callbackChannel = Channel<C>()
 
     abstract fun handleUiEvent(uiEvent: E)
 
+    protected fun updateState(block: S.() -> S) {
+        state.value = block.invoke(state.value)
+    }
+
     protected fun launch(
+        progress: ((Boolean) -> Unit)? = null,
         onError: ((Throwable) -> Unit)? = null,
         onComplete: () -> Unit = {},
         block: suspend CoroutineScope.() -> Unit
-    ): Job = viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+    ): Job = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
         onError?.invoke(throwable)
     }) {
         try {
+            progress?.invoke(true)
             block()
         } finally {
-            onComplete()
-        }
-    }
-
-    protected fun launchWithProgress(
-        progress: ((Boolean) -> Unit) = _globalProgressState::value::set,
-        onComplete: () -> Unit = {},
-        onError: ((Throwable) -> Unit)? = null,
-        block: suspend CoroutineScope.() -> Unit
-    ) = launch(onError) {
-        try {
-            progress(true)
-            block()
-        } finally {
-            progress(false)
+            progress?.invoke(false)
             onComplete()
         }
     }
