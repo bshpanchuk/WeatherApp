@@ -46,5 +46,5 @@ Libraries used in the whole application are:
 
 ## Demo
 
-|<img src="demo/img1.jpg" width=200/>|<img src="demo/img2.jpg" width=200/>|<img src="demo/img3.jpg" width=200/>|
-[Video]()
+|<img src="demo/img1.png" width=200/>|<img src="demo/img2.png" width=200/>|<img src="demo/img3.png" width=200/>|
+[Video](https://github.com/bshpanchuk/WeatherApp/blob/master/demo/screen.mp4)
